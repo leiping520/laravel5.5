@@ -41,3 +41,18 @@
 ###### php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider" 发布配置文件
         
      .env  DEBUGBAR_ENABLED=true
+     
+3.创建command 命令php artisan key:generate 和php artisan cbc:generate
+    
+    Console/Kernel.php 属性$commands
+    
+        protected $commands = [
+                Commands\AesCbcPassword::class,
+                Commands\CbcGenerateCommand::class,
+        ];
+        
+     Console/Commands
+     
+        AesCbcPassword.php 和 CbcGenerateCommand.php
+        
+        

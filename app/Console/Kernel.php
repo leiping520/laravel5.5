@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        Commands\AesCbcPassword::class,
+        Commands\CbcGenerateCommand::class,
     ];
 
     /**
