@@ -73,9 +73,37 @@
         
         再 event(new Ceshi($data))
 
-
-
-
+5.自定义服务提供者
+    
+    第一步、创建服务提供者
+    
+    php artisan make:provider WeatherServiceProvider 即在app/Providers目录下创建了WeatherServiceProvider
+    
+    第二步、注册
+    
+    在config/app.php中注册服务提供者,在providers数组中将创建的服务提供者 App\Providers\WeatherServiceProvider::class写入
+    
+    第三步、创建契约
+    
+    在app目录下新建Contracts目录用以存放契约文件
+    在app/Contracts目录下创建契约,即Weather.php接口文件。在接口中只定义了public function getWeather($cityName); 一个方法用于获取天气信息.
+   
+    第四步、实现契约
+    
+    在app目录下新建Service/Weather目录用于存放实现Weather.php契约的文件
+    最终创建的文件是app/Service/Weather/Xinzhi.php。继承了Weather.php接口文件,所有要实现getWeather方法
+    
+    第五步、服务提供者绑定
+    
+    在WeatherServiceProvider中的register方法添加以下代码
+    
+    $this->app->bind('App\Contracts\Weather', function() {
+        return new Xinzhi();
+    });
+    
+    第六步、使用
+    
+    控制器中引入 use App\Contracts\Weather
 
 
 =====================================================================================
@@ -153,4 +181,24 @@ service php-fpm restart
     display_errors = Off
     error_reporting = E_ALL
     log_errors = On
-    
+ 
+ 
+ # 记录日志的方法
+     /**
+      * @param $dir 日志所在目录
+      * @param $filename 日志文件
+      * @param $log 日志内容
+     */
+   
+     function writeLog(~~$dir~~,$filename,$log)
+     {
+         if (!file_exists($dir)) is_dir($dir)or (dirname($dir))and mkdir($dir,0777);
+         $dir .= $filename;
+         $h= fopen($dir,'a');//文件追加
+         $time= date('Y-m-d H:i:s',time());
+         $start="time:".$time."\r\n"."---------- content start ----------"."\r\n";
+         $end="\r\n"."---------- content end ----------"."\r\n\n";
+         $content=$start."".$log."".$end;
+         fwrite($h, $content);
+         fclose($h);
+     }
