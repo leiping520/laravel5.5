@@ -13,6 +13,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+
+        //注册事件和监听
+        'App\Events\Ceshi' => [
+            'App\Listeners\CeshiRecord'
+        ],
+
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],

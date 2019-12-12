@@ -55,8 +55,23 @@
      
         AesCbcPassword.php 和 CbcGenerateCommand.php
         
-
-
+4.关于在laravel中的事件、监听的使用
+    
+    Laravel 有一个事件系统，事件类所在位置为app/Events，监听事件类所在位置为app/Listeners。
+    当你运行Artisan控制台命令时会自动给你创建。
+    
+    第一步、事件与监听器的注册
+        我们要找到EventServiceProvider.php的listens属性进行一些配置
+        
+    第二步、创建事件类与监听器类 
+        php artisan event:generate
+    
+    第三步、触发事件
+    
+        可以在控制器、模型中调用事件类
+        use App\Events\Ceshi
+        
+        再 event(new Ceshi($data))
 
 
 
@@ -85,7 +100,7 @@ phpize
 
 5.配置
 
-./configure
+./configure --prefix=/usr/local/xxx  配置安装路径
 
 6.编译并安装
 
@@ -129,5 +144,13 @@ service php-fpm restart
     php :
     查找PHP日志   whereis php.ini cat php.ini  查看日志所在路径
     
+    error_log 错误日志的生成目录
+    error_reporting 生产环境错误级别应全开
+    display_errors 在页面上不显示错误
+    log_errors 开启错误日志
     
+    error_log = /var/log/php_error.log
+    display_errors = Off
+    error_reporting = E_ALL
+    log_errors = On
     
